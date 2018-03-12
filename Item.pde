@@ -20,15 +20,16 @@ class Item {
   }
   
   void render() {
-    int obj_size = 50;
+    //draws branches (parent -> child)
+    if (children.size() != 0) {
+      for (Item child: children) {
+        stroke(255, 255, 255);
+        line(x, y, child.x, child.y);
+      } 
+    }
     stroke(64,0,0);
     fill(64,0,0);
-    ellipse(x,y,obj_size,obj_size);
-    
-    //TODO: draw branches (child draws back to parent)
-    if (parent != null) {
-      line(x, y, parent.get_x(), parent.get_y());
-    }
+    ellipse(x,y,OBJ_SIZE,OBJ_SIZE);
     renderChildren();
   }
   
@@ -71,10 +72,10 @@ class Item {
     return pos;
   }
   
+  // remove or encapulate all
   int get_x() {
     return x;
   }
-  
   int get_y() {
     return y;
   }
