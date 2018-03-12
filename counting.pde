@@ -17,20 +17,17 @@ void setup() {
 }
 
 void draw() {
-    //int obj_size = 100;
-    //stroke(64,0,0);
-    //fill(64,0,0);
-    //rect(200,200,obj_size,obj_size);
   view.render();
 }
 
 void addTuioObject(TuioObject tobj) {
-  //view.add_fiducial(tobj.getSymbolID());
+  view.add_fiducial(tobj.getSymbolID(), tobj.getX(), tobj.getY());
 }
 
 void updateTuioObject(TuioObject tobj) {
+  view.update_fiducial(tobj.getSymbolID(), tobj.getX(), tobj.getY());
 }
 
 void removeTuioObject(TuioObject tobj) {
-  //view.remove_fiducial(tobj.getSymbolID());
+  view.remove_fiducial(tobj.getSymbolID(), tobj.getX(), tobj.getY());
 }
