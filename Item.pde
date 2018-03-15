@@ -4,7 +4,7 @@ class Item {
   ArrayList<Item> children;
   int depth, num_children, x, y, board_width, board_height, height_start, width_start, item_width;
   int state; //0: no show, 1: ghost, 2: solid
-  int item_radius = OBJ_SIZE + 5; //range where the fiducial can be
+  int item_radius = OBJ_SIZE; //range where the fiducial can be
   int local_width = DISPLAY_WIDTH/NUM_LEVELS; //the width of a small box
   int item_id;
   
@@ -46,7 +46,6 @@ class Item {
       noFill();
       //text
       fill(0, 255, 0);
-      strokeWeight(10);
       if (item_id == -1) {
         text("START", x-50, y);
       } else {
@@ -149,12 +148,12 @@ class Item {
   
   //checking if the x, y is within the range (circle with radius item_radius)
   boolean fiducial_in_range(float tobj_x, float tobj_y) {
-    System.out.println(x + " " + y + " " + tobj_x + " " + tobj_y);
+    //System.out.println(x + " " + y + " " + tobj_x + " " + tobj_y);
     return (tobj_x - x)*(tobj_x - x) + (tobj_y - y) * (tobj_y - y) < item_radius*item_radius;
   }
   
   void handle_add_fiducial(int id, int tobj_x, int tobj_y) {
-    System.out.println("ellipse " + tobj_x + " " + tobj_y + " " + OBJ_SIZE);
+    //System.out.println("ellipse " + tobj_x + " " + tobj_y + " " + OBJ_SIZE);
     if (fiducial_in_range(tobj_x, tobj_y)){
       //check if valid option
       System.out.println("in range " + remaining_options.get(id));
@@ -165,7 +164,7 @@ class Item {
       //figure out which one of the children to passing
       //System.out.println("passing");
       for (Item child: children) {
-        System.out.println("which child " + child.board_height + " start - y " + (child.height_start - tobj_y)); 
+        //System.out.println("which child " + child.board_height + " start - y " + (child.height_start - tobj_y)); 
         if (child.height_start - tobj_y <= child.board_height) {
           child.handle_add_fiducial(id, tobj_x, tobj_y);
         }

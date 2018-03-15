@@ -3,7 +3,7 @@ import java.util.Arrays;
 int NUM_OBJECTS = 3;
 int NUM_LEVELS = NUM_OBJECTS + 1;
 int LEVEL_WIDTH = DISPLAY_WIDTH/NUM_LEVELS; //TODO: figure out why this is 0
-int OBJ_SIZE = DISPLAY_WIDTH/7; //size of circle
+int OBJ_SIZE = 50; //size of circle
 int a = 48; //qr code id
 int b = 49;
 int c = 50;
@@ -12,7 +12,7 @@ HashMap<Integer, Character> ids_to_values = new HashMap(); // do we need to do t
 class TUIOBoardView {
   Item root;
   // (x, y) of the upper left corner
-  int x = -70;
+  int x = -40;
   int y = 0;
   HashMap<Integer, Boolean> valid_ids;
   

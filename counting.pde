@@ -10,18 +10,20 @@ int DISPLAY_HEIGHT;
 
 void setup() {
   noCursor();
-  size(displayWidth, displayHeight); //cannot be variables
-  DISPLAY_WIDTH = displayWidth;
-  DISPLAY_HEIGHT = displayHeight-50;
-  System.out.println(displayWidth);
-  System.out.println(displayHeight);
+  size(700, 500); //cannot be variables
+  DISPLAY_WIDTH = 750;
+  DISPLAY_HEIGHT = 550-100;
+  //System.out.println(displayWidth);
+  //System.out.println(displayHeight);
   loop();
   frameRate(60);
   tuioClient  = new TuioProcessing(this);
   //noStroke();
   //fill(0, 0, 0);
     
-  textSize(50);
+  textSize(30);
+  strokeWeight(5);
+
   view = new TUIOBoardView();
   calibration = new Calibration();
   //view.render();
@@ -30,7 +32,6 @@ void setup() {
 
 void draw() {
   //don't do it this way and call render, will need to updateTuioObject
-  if(!calibration.calibrated) calibration.draw();
   view.render();
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
   for (int i=0;i<tuioObjectList.size();i++) {
@@ -39,22 +40,27 @@ void draw() {
      stroke(255,0,0);
      noFill();
      pushMatrix();
-     translate(tobj.getScreenX(DISPLAY_WIDTH),tobj.getScreenY(DISPLAY_HEIGHT));
+     //translate(tobj.getScreenX(DISPLAY_WIDTH),tobj.getScreenY(DISPLAY_HEIGHT));
+     translate(tx(tobj), ty(tobj));
      ellipse(0, 0, OBJ_SIZE, OBJ_SIZE);
      popMatrix();
     }
    }
-  
+   if(!calibration.calibrated) calibration.draw();
 }
 
 
 void addTuioObject(TuioObject tobj) {
-  view.add_fiducial(tobj.getSymbolID(), tobj.getScreenX(DISPLAY_WIDTH), tobj.getScreenY(DISPLAY_HEIGHT));
+  try {
+    //so that view has time to be initialized
+    Thread.sleep(50);
+  } catch(InterruptedException e){}
+  view.add_fiducial(tobj.getSymbolID(), tx(tobj), ty(tobj));
 }
 
 void updateTuioObject(TuioObject tobj) {
 
-  view.update_fiducial(tobj.getSymbolID(), tobj.getScreenX(DISPLAY_WIDTH), tobj.getScreenY(DISPLAY_HEIGHT));
+  view.update_fiducial(tobj.getSymbolID(), tx(tobj), ty(tobj));
 }
 
 void removeTuioObject(TuioObject tobj) {
