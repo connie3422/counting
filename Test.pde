@@ -1,5 +1,5 @@
 void runTests() {
-    //add_fiducial_to_depth0Child1();
+    add_fiducial_to_depth0Child1();
     //add_fiducial_to_depth0Child2();
 }
 

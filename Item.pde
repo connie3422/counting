@@ -117,10 +117,13 @@ class Item {
   
   void set_state(int s, int id) {
     //TODO: Do we rerender? draw called
+    if (parent != null) {
+      System.out.println("in set state " + Arrays.asList(parent.remaining_options) + " state " + s);
+    }
     state = s;
     if (s == 2) {
       //remove from remaining options
-      if (item_id < 0) {
+      if (item_id > 0) {
         //add back item_id option for the other children
         return;
       }
@@ -128,7 +131,7 @@ class Item {
       if (parent != null) {
         parent.update_remaining_in_children(id);
       }
-      //System.out.println("in set state " + Arrays.asList(parent.remaining_options));
+      
       create_children();
       for (Item child: children) {
         child.set_state(1, -1);
@@ -157,7 +160,6 @@ class Item {
     if (fiducial_in_range(tobj_x, tobj_y)){
       //check if valid option
       System.out.println("in range " + remaining_options.get(id));
-      
       if (remaining_options.get(id) != null && remaining_options.get(id) != false) {
         
         set_state(2, id);
