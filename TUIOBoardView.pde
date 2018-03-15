@@ -5,7 +5,7 @@ int NUM_LEVELS = NUM_OBJECTS + 1;
 int LEVEL_WIDTH = DISPLAY_WIDTH/NUM_LEVELS; //TODO: figure out why this is 0
 int OBJ_SIZE = 50;
 int a = 48;
-int b = 51;
+int b = 49;
 int c = 50;
 HashMap<Integer, Character> ids_to_values = new HashMap(); // do we need to do this?
 
@@ -34,12 +34,12 @@ class TUIOBoardView {
   }
   
   void render() {
-    System.out.println("rendering");
+    //System.out.println("rendering");
     background(0,0,64);
     root.render();
   }
   
-  void add_fiducial(int id, float x, float y) {
+  void add_fiducial(int id, int x, int y) {
     //System.out.println("adding fiducial " + id);
     if (valid_ids.containsKey(id)) {
       // draw ring around fiducial
@@ -47,14 +47,14 @@ class TUIOBoardView {
     }
   }
   
-  void update_fiducial(int id, float x, float y) {
+  void update_fiducial(int id, int x, int y) {
     if (valid_ids.containsKey(id)) {
       // draw ring around fiducial
       root.handle_add_fiducial(id, x, y);
     }
   }
   
-  void remove_fiducial(int id, float x, float y) {
+  void remove_fiducial(int id, int x, int y) {
     
   }
   

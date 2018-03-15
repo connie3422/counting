@@ -28,10 +28,10 @@ class Item {
   
   void render() {
     //draws branches (parent -> child)
-    if (num_children != 0 && (state == 2 || state == -2)) {
+    if (num_children != 0 && (state == 2 || parent == null)) {
       for (Item child: children) {
         if (child.state == 2) {
-          stroke(0, 0, 0);
+          stroke(255, 255, 255);
         } else if (child.state == 1) {
           stroke(150,150,150);
         }
@@ -39,14 +39,14 @@ class Item {
       } 
     }
     //draws items
-    if (state == 2 || state == -2) {
-      stroke(0,0,0);
-      fill(0,0,0);
+    if (state == 2 || parent == null) {
+      stroke(255,255,255);
+      fill(255,255,255);
       ellipse(x,y,item_radius,item_radius);
       noFill();
       fill(0, 255, 0);
       if (item_id == -1) {
-        text("START", x, y);
+        text("START", x-50, y);
       } else {
         text(ids_to_values.get(item_id), x, y);
       }
@@ -59,7 +59,7 @@ class Item {
       noFill();
     }
     
-    if (state > 1 || state == -2) {
+    if (state > 1 || parent == null) {
       render_children();
     }
   }
@@ -99,7 +99,7 @@ class Item {
       int child_height_start = i * child_board_height + height_start;
       int child_width_start = width_start + local_width;
       int child_state = (state - 1 >= 0) ? state - 1 : 0;
-      if (state == -2) child_state = 1;
+      if (parent == null) child_state = 1;
       Item child = new Item(this, child_depth, child_num_children, child_board_width, child_board_height, 
         child_width_start, child_height_start, child_remaining_options, child_state);
       children.add(child);
@@ -116,9 +116,10 @@ class Item {
   
   void set_state(int s, int id) {
     //TODO: Do we rerender? draw called
-    if (parent != null) {
-      System.out.println("in set state " + Arrays.asList(parent.remaining_options) + " state " + s);
+    if (parent == null) {
+      return;
     }
+    System.out.println("in set state " + Arrays.asList(parent.remaining_options) + " state " + s);
     state = s;
     if (s == 2) {
       //remove from remaining options
@@ -135,7 +136,6 @@ class Item {
       for (Item child: children) {
         child.set_state(1, -1);
       }
-      view.render();
     }
   }
   
@@ -152,22 +152,16 @@ class Item {
     return (tobj_x - x)*(tobj_x - x) + (tobj_y - y) * (tobj_y - y) < item_radius*item_radius;
   }
   
-  void handle_add_fiducial(int id, float tobj_x, float tobj_y) {
-    stroke(255,0,0);
-    noFill();
-    //System.out.println("drawing ellipse ");
-    ellipse(tobj_x, tobj_y, OBJ_SIZE, OBJ_SIZE);
-    //text("here!", tobj_x, tobj_y);
+  void handle_add_fiducial(int id, int tobj_x, int tobj_y) {
     System.out.println("ellipse " + tobj_x + " " + tobj_y + " " + OBJ_SIZE);
     if (fiducial_in_range(tobj_x, tobj_y)){
       //check if valid option
       System.out.println("in range " + remaining_options.get(id));
       if (remaining_options.get(id) != null && remaining_options.get(id) != false) {
-        
         set_state(2, id);
       }
     } else if (tobj_x > width_start + local_width) {
-      //figure out which one of the children to pass ng");
+      //figure out which one of the children to passing
       //System.out.println("passing");
       for (Item child: children) {
         System.out.println("which child " + child.board_height + " start - y " + (child.height_start - tobj_y)); 
