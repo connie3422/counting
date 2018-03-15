@@ -23,12 +23,14 @@ void setup() {
     
   textSize(50);
   view = new TUIOBoardView();
+  calibration = new Calibration();
   //view.render();
   //runTests();
 }
 
 void draw() {
   //don't do it this way and call render, will need to updateTuioObject
+  if(!calibration.calibrated) calibration.draw();
   view.render();
   ArrayList<TuioObject> tuioObjectList = tuioClient.getTuioObjectList();
   for (int i=0;i<tuioObjectList.size();i++) {

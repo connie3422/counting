@@ -44,6 +44,7 @@ class Item {
       fill(255,255,255);
       ellipse(x,y,item_radius,item_radius);
       noFill();
+      //text
       fill(0, 255, 0);
       strokeWeight(10);
       if (item_id == -1) {
