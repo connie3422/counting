@@ -3,7 +3,7 @@ import java.util.Arrays;
 int NUM_OBJECTS = 3;
 int NUM_LEVELS = NUM_OBJECTS + 1;
 int LEVEL_WIDTH = DISPLAY_WIDTH/NUM_LEVELS; //TODO: figure out why this is 0
-int OBJ_SIZE = 50;
+int OBJ_SIZE = 250;
 int a = 48;
 int b = 49;
 int c = 50;
