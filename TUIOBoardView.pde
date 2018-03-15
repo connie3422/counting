@@ -5,7 +5,7 @@ int NUM_LEVELS = NUM_OBJECTS + 1;
 int LEVEL_WIDTH = DISPLAY_WIDTH/NUM_LEVELS; //TODO: figure out why this is 0
 int OBJ_SIZE = 50;
 int a = 48;
-int b = 49;
+int b = 51;
 int c = 50;
 HashMap<Integer, Character> ids_to_values = new HashMap(); // do we need to do this?
 
@@ -21,14 +21,21 @@ class TUIOBoardView {
     valid_ids.put(a, true);
     valid_ids.put(b, true);
     valid_ids.put(c, true);
-    ids_to_values.put(a, 'a');
-    ids_to_values.put(b, 'b');
-    ids_to_values.put(c, 'c');
-    root = new Item(null, 0, NUM_OBJECTS, DISPLAY_WIDTH, DISPLAY_HEIGHT, x, y, valid_ids, 2);
+    ids_to_values.put(a, 'A');
+    ids_to_values.put(b, 'B');
+    ids_to_values.put(c, 'C');
+    root = new Item(null, 0, NUM_OBJECTS, DISPLAY_WIDTH, DISPLAY_HEIGHT, x, y, valid_ids, -2);
     root.create_children();
+    for (Item child: root.children) {
+      System.out.println(child.num_children);
+      System.out.println(child.children.size());
+    }
+    
   }
   
   void render() {
+    System.out.println("rendering");
+    background(0,0,64);
     root.render();
   }
   
