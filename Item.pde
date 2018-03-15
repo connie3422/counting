@@ -1,4 +1,3 @@
-
 class Item {
   HashMap<Integer, Boolean> remaining_options; //for the children
   Item parent;
@@ -149,14 +148,17 @@ class Item {
   
   //checking if the x, y is within the range (circle with radius item_radius)
   boolean fiducial_in_range(float tobj_x, float tobj_y) {
+    System.out.println(x + " " + y + " " + tobj_x + " " + tobj_y);
     return (tobj_x - x)*(tobj_x - x) + (tobj_y - y) * (tobj_y - y) < item_radius*item_radius;
   }
   
   void handle_add_fiducial(int id, float tobj_x, float tobj_y) {
     stroke(255,0,0);
     noFill();
+    //System.out.println("drawing ellipse ");
     ellipse(tobj_x, tobj_y, OBJ_SIZE, OBJ_SIZE);
-    //System.out.println("ellipse " + tobj_x + " " + tobj_y + " " + OBJ_SIZE);
+    //text("here!", tobj_x, tobj_y);
+    System.out.println("ellipse " + tobj_x + " " + tobj_y + " " + OBJ_SIZE);
     if (fiducial_in_range(tobj_x, tobj_y)){
       //check if valid option
       System.out.println("in range " + remaining_options.get(id));
@@ -166,8 +168,9 @@ class Item {
       }
     } else if (tobj_x > width_start + local_width) {
       //figure out which one of the children to pass ng");
-      System.out.println("passing");
+      //System.out.println("passing");
       for (Item child: children) {
+        System.out.println("which child " + child.board_height + " start - y " + (child.height_start - tobj_y)); 
         if (child.height_start - tobj_y <= child.board_height) {
           child.handle_add_fiducial(id, tobj_x, tobj_y);
         }
