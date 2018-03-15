@@ -6,8 +6,10 @@ TUIOBoardView view;
 int DISPLAY_WIDTH;
 int DISPLAY_HEIGHT;
 
+//TODO: setup constants for TUIOBoard vs screen
+
 void setup() {
-  //noCursor();
+  noCursor();
   size(displayWidth, displayHeight); //cannot be variables
   DISPLAY_WIDTH = displayWidth;
   DISPLAY_HEIGHT = displayHeight-50;
@@ -19,7 +21,7 @@ void setup() {
   //noStroke();
   //fill(0, 0, 0);
     
-  textSize(20);
+  textSize(50);
   view = new TUIOBoardView();
   //view.render();
   //runTests();
