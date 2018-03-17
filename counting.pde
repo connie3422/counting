@@ -10,9 +10,9 @@ int DISPLAY_HEIGHT;
 
 void setup() {
   noCursor();
-  size(700, 500); //cannot be variables
-  DISPLAY_WIDTH = 750;
-  DISPLAY_HEIGHT = 550-100;
+  size(745, 520); //cannot be variables
+  DISPLAY_WIDTH = 795;
+  DISPLAY_HEIGHT = 570-100;
   //System.out.println(displayWidth);
   //System.out.println(displayHeight);
   loop();
@@ -44,6 +44,15 @@ void draw() {
      translate(tx(tobj), ty(tobj));
      ellipse(0, 0, OBJ_SIZE, OBJ_SIZE);
      popMatrix();
+    } else{
+      stroke(90,90,154);
+           noFill();
+     pushMatrix();
+     //translate(tobj.getScreenX(DISPLAY_WIDTH),tobj.getScreenY(DISPLAY_HEIGHT));
+     translate(tx(tobj), ty(tobj));
+     ellipse(0, 0, OBJ_SIZE, OBJ_SIZE);
+     popMatrix();
+
     }
    }
    if(!calibration.calibrated) calibration.draw();

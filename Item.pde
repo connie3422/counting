@@ -7,6 +7,7 @@ class Item {
   int item_radius = OBJ_SIZE; //range where the fiducial can be
   int local_width = DISPLAY_WIDTH/NUM_LEVELS; //the width of a small box
   int item_id;
+  boolean same_state;
   
   Item(Item _parent, int _depth, int _num_children, int _board_width, int _board_height, 
     int _width_start, int _height_start, HashMap<Integer, Boolean> _remaining_options, int _state) {
@@ -24,6 +25,7 @@ class Item {
     y = pos[1];
     state = _state;
     item_id = -1;
+    same_state = false; //TODO: hover over same one circle in green
   }
   
   void render() {
@@ -119,6 +121,7 @@ class Item {
     if (parent == null) {
       return;
     }
+    if (id == item_id) same_state = true;
     System.out.println("in set state " + Arrays.asList(parent.remaining_options) + " state " + s);
     state = s;
     if (s == 2) {
